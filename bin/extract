@@ -1,0 +1,62 @@
+#!/usr/bin/env node
+var fs = require('fs'),
+    md = require('markdown');
+var files = process.argv;
+files.shift(); // node
+files.shift(); // this script
+files.forEach(function(val, idx, array){
+  fs.readFile(val, 'utf-8', function (err, data) {
+      if (err) throw err;
+    extract(data);
+  });
+});
+
+function toHTMLTree(input){
+  return md.markdown.toHTMLTree(input);
+}
+
+function ttype(obj){
+    var t = typeof obj;
+    if (Array.isArray(obj)) t = 'array';
+    return t;
+}
+
+function walk(tree, fn){
+    switch(ttype(tree)){
+        case 'object':
+            for (var key in tree){
+                fn(key, tree[key]);
+                walk(tree[key], fn);
+            }
+            break;
+        case 'array':
+            if (tree.length == 2){
+                fn(tree[0], tree[1]);
+                walk(tree[1], fn);
+            }else{
+                tree.forEach(function(subtree){
+                    walk(subtree, fn);
+                });
+            }
+            break;
+        default: // do nothing
+    }
+}
+
+function codeExcerpt(name, text){
+    if (/.*code.*/.test(name)){
+        console.log(text);
+        console.log();
+    }else{
+//        console.log('not code: "%s": %s', name, text);
+    }
+}
+
+function extract(text){
+//    console.log(text);
+//    console.log(md.markdown.Markdown);
+    var tree = toHTMLTree(text);
+//      var tree = md.parse(text);
+//    console.log(tree);
+    walk(tree, codeExcerpt);
+}
