@@ -1,62 +1,142 @@
-#!/usr/bin/env node
-var fs = require('fs'),
-    md = require('markdown');
-var files = process.argv;
-files.shift(); // node
-files.shift(); // this script
-files.forEach(function(val, idx, array){
-  fs.readFile(val, 'utf-8', function (err, data) {
-      if (err) throw err;
-    extract(data);
-  });
-});
+#!/usr/bin/env coffee
 
-function toHTMLTree(input){
-  return md.markdown.toHTMLTree(input);
-}
+fs = require("fs")
+path = require("path")
+markdown = require("markdown").markdown
+mustache = require("mustache")
+stylus = require("stylus")
+nib = require("nib")
+coffeescript = require("coffee-script")
+finder = require("findit").find(process.cwd() + "/bloqs")
 
-function ttype(obj){
-    var t = typeof obj;
-    if (Array.isArray(obj)) t = 'array';
-    return t;
-}
+output_files = {}
+openfiles = 0
 
-function walk(tree, fn){
-    switch(ttype(tree)){
-        case 'object':
-            for (var key in tree){
-                fn(key, tree[key]);
-                walk(tree[key], fn);
-            }
-            break;
-        case 'array':
-            if (tree.length == 2){
-                fn(tree[0], tree[1]);
-                walk(tree[1], fn);
-            }else{
-                tree.forEach(function(subtree){
-                    walk(subtree, fn);
-                });
-            }
-            break;
-        default: // do nothing
-    }
-}
+outfilename = (infilename, ext) ->
+  relativepath = infilename
+  relativepath = "build" + infilename.split(process.cwd() + "/bloqs")[1]  if infilename[0] == "/"
+  sansext = relativepath.split(path.extname(relativepath))[0]
+  sansext + ext
 
-function codeExcerpt(name, text){
-    if (/.*code.*/.test(name)){
-        console.log(text);
-        console.log();
-    }else{
-//        console.log('not code: "%s": %s', name, text);
-    }
-}
+ensurepath = (relpath) ->
+  parts = relpath.split("/")
+  parts.pop()
+  buildpath = ""
+  while parts.length
+    buildpath = path.join(buildpath, parts.shift())
+    fs.mkdirSync buildpath, "0755"  unless path.existsSync(buildpath)
+    
+toHTMLTree = (filename) ->
+  try
+    openfiles++
+    fs.readFile filename, "utf-8", (err, text) ->
+      tree = markdown.toHTMLTree(text)
+      html = markdown.toHTML(text)
+      walk tree, codeExcerpt
+      outpath = outfilename(filename, ".html")
+      ensurepath outpath
+      console.log('writing %s', outpath)
+      fs.writeFile outpath, html
+      openfiles--
+      writefiles() unless openfiles
+  catch e
+    console.log "There was a problem processing file %s", filename
+    openfiles--
+    throw e
 
-function extract(text){
-//    console.log(text);
-//    console.log(md.markdown.Markdown);
-    var tree = toHTMLTree(text);
-//      var tree = md.parse(text);
-//    console.log(tree);
-    walk(tree, codeExcerpt);
-}
+writefiles = ->
+  console.log 'writefiles'
+  for outpath, outtext of output_files
+    console.log 'outpath: %s', outpath
+    filetype = path.extname(outpath)[1..]
+    contents = output_files[outpath].join("\n\n")
+    if filetype in [ "stylus", "coffee", "md", "markdown", "mustache", "json", "sketch" ]
+      console.log('writing %s', outpath)
+      fs.writeFile outpath, contents
+      processor[filetype] outpath, contents
+  for outpath, outtext of output_files
+    filetype = path.extname(outpath)[1..]
+    contents = output_files[outpath].join("\n\n")
+    if filetype in [ "html", "css", "js" ]
+      console.log "writing file %s", outpath
+      fs.writeFile outpath, contents
+    else
+      console.log "rejected %s", outpath
+      
+ttype = (obj) ->
+  t = typeof obj
+  t = "array"  if Array.isArray(obj)
+  t
+
+walk = (tree, fn) ->
+  switch ttype(tree)
+    when "object"
+      for key of tree
+        fn key, tree[key]
+        walk tree[key], fn
+    when "array"
+      if tree.length == 2
+        fn tree[0], tree[1]
+        walk tree[1], fn
+      else
+        tree.forEach (subtree) ->
+          walk subtree, fn
+    else
+
+stash_fragment = (filename, fragment, processed) ->
+  console.log "stash_fragment(#{filename}, fragment, #{processed})"
+  fragment = fragment.split("\n")[2..].join("\n")  unless processed
+  output_files[filename] = []  unless output_files[filename]
+  output_files[filename].push fragment
+
+codeExcerpt = (name, text) ->
+  if /.*code.*/.test(name)
+    lines = text.trim().split("\n")
+    parsedline = lines[0].match(/file\: +(.*)/)
+    unless parsedline
+      console.log text
+      throw new Error("no filename found for " + lines.length + " lines of code")
+    filename = parsedline[1]
+    ext = path.extname(filename)
+    base = path.basename(filename, ext)
+    outpath = "build/" + base + ext
+    stash_fragment outpath, text
+    
+extract = (filename) ->
+  ext = path.extname(filename)
+  toHTMLTree filename  if ext in [ ".md", ".markdown" ]
+
+processor = 
+  sketch: (filename, contents) ->
+  
+  stylus: (filename, contents) ->
+    console.log "processing stylus to css: %s", filename
+    outpath = outfilename(filename, ".css")
+    outcontents = ''
+    stylus(contents).set("filename", filename).use(nib()).import("nib").render (err, result) ->
+      outcontents = result
+    
+    stash_fragment outpath, outcontents, true
+  
+  mustache: (filename, contents) ->
+  
+  coffee: (filename, contents) ->
+    console.log "processing coffeescript to javascript: %s", filename
+    outpath = outfilename(filename, ".js")
+    outcontents = coffeescript.compile(contents)
+    stash_fragment outpath, outcontents, true
+  
+  markdown: (filename, contents) ->
+    console.log "processing markdown to html: %s", filename
+    outpath = outfilename(filename, ".html")
+    outcontents = markdown.toHTML(contents)
+    stash_fragment outpath, outcontents, true
+  
+  md: (filename, contents) ->
+    processors.markdown filename, contents
+  
+  json: (filename, contents) ->
+
+finder.on "file", extract
+
+
