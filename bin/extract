@@ -60,9 +60,9 @@ writefiles = ->
     if filetype in [ "html", "css", "js" ]
       console.log "writing file %s", outpath
       fs.writeFile outpath, contents
-    else
-      console.log "rejected %s", outpath
-      
+#     else
+#       console.log "rejected %s", outpath
+
 ttype = (obj) ->
   t = typeof obj
   t = "array"  if Array.isArray(obj)
