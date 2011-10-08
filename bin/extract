@@ -35,7 +35,7 @@ toHTMLTree = (filename) ->
       walk tree, codeExcerpt
       outpath = outfilename(filename, ".html")
       ensurepath outpath
-      console.log('writing %s', outpath)
+#       console.log('writing %s', outpath)
       fs.writeFile outpath, html
       openfiles--
       writefiles() unless openfiles
@@ -45,20 +45,20 @@ toHTMLTree = (filename) ->
     throw e
 
 writefiles = ->
-  console.log 'writefiles'
+#   console.log 'writefiles'
   for outpath, outtext of output_files
-    console.log 'outpath: %s', outpath
+#     console.log 'outpath: %s', outpath
     filetype = path.extname(outpath)[1..]
     contents = output_files[outpath].join("\n\n")
     if filetype in [ "stylus", "coffee", "md", "markdown", "mustache", "json", "sketch" ]
-      console.log('writing %s', outpath)
+#       console.log('writing %s', outpath)
       fs.writeFile outpath, contents
       processor[filetype] outpath, contents
   for outpath, outtext of output_files
     filetype = path.extname(outpath)[1..]
     contents = output_files[outpath].join("\n\n")
     if filetype in [ "html", "css", "js" ]
-      console.log "writing file %s", outpath
+#       console.log "writing file %s", outpath
       fs.writeFile outpath, contents
 #     else
 #       console.log "rejected %s", outpath
@@ -84,7 +84,7 @@ walk = (tree, fn) ->
     else
 
 stash_fragment = (filename, fragment, processed) ->
-  console.log "stash_fragment(#{filename}, fragment, #{processed})"
+#   console.log "stash_fragment(#{filename}, fragment, #{processed})"
   fragment = fragment.split("\n")[2..].join("\n")  unless processed
   output_files[filename] = []  unless output_files[filename]
   output_files[filename].push fragment
@@ -94,7 +94,7 @@ codeExcerpt = (name, text) ->
     lines = text.trim().split("\n")
     parsedline = lines[0].match(/file\: +(.*)/)
     unless parsedline
-      console.log text
+#       console.log text
       throw new Error("no filename found for " + lines.length + " lines of code")
     filename = parsedline[1]
     ext = path.extname(filename)
@@ -110,7 +110,7 @@ processor =
   sketch: (filename, contents) ->
   
   stylus: (filename, contents) ->
-    console.log "processing stylus to css: %s", filename
+#     console.log "processing stylus to css: %s", filename
     outpath = outfilename(filename, ".css")
     outcontents = ''
     stylus(contents).set("filename", filename).use(nib()).import("nib").render (err, result) ->
@@ -121,13 +121,13 @@ processor =
   mustache: (filename, contents) ->
   
   coffee: (filename, contents) ->
-    console.log "processing coffeescript to javascript: %s", filename
+#     console.log "processing coffeescript to javascript: %s", filename
     outpath = outfilename(filename, ".js")
     outcontents = coffeescript.compile(contents)
     stash_fragment outpath, outcontents, true
   
   markdown: (filename, contents) ->
-    console.log "processing markdown to html: %s", filename
+#     console.log "processing markdown to html: %s", filename
     outpath = outfilename(filename, ".html")
     outcontents = markdown.toHTML(contents)
     stash_fragment outpath, outcontents, true
