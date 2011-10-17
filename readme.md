@@ -61,10 +61,12 @@ There is no specific support, but oBloq can be used to document Ajax paths, URL 
 ## Todo
 
 * Package as a Node module
-* Gather all extracted files into distributable *.js and *.css minimized and compressed files for production
+√ Gather all extracted *.js and *.css files into concatenated files
+* Minimized and compress concatenated files for production
 * Allow user configuration for which files get concatenated, minimized, and compressed and in what order
-* Watch command to re-run extraction whenever a source file is changed
+√ Watch command to re-run extraction whenever a source file is changed
 * Fix offset of text in sketchy
+* Convert sketchy to build dom objects for layout where applicable
 * More example code
 * Code clean up and commenting
 * Include files global.stylus or bloqs/global/*.stylus when processing other stylus files (for definitions of site-wide variables for things like colours and fonts)
@@ -76,3 +78,4 @@ There is no specific support, but oBloq can be used to document Ajax paths, URL 
 * Determine sketch size automatically from content (this would avoid the need to give room for sketchy lines to overflow, done manually now
 * Create an NPM package for oBloq
 * Reduce the "nudge" factor in small sketches
+

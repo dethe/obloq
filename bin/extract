@@ -11,11 +11,13 @@ finder = require("findit").find(process.cwd() + "/bloqs")
 
 output_files = {}
 
+relative = (infilename) ->
+    return 'build' + infilename.split(process.cwd() + '/bloqs')[1] if infilename[0] is '/'
+    infilename
+
 outfilename = (infilename, ext) ->
-  relativepath = infilename
-  relativepath = "build" + infilename.split(process.cwd() + "/bloqs")[1]  if infilename[0] == "/"
-  sansext = relativepath.split(path.extname(relativepath))[0]
-  sansext + ext
+  relativepath = relative(infilename)
+  relativepath.split(path.extname(relativepath))[0] + ext
 
 ensurepath = (relpath) ->
   parts = relpath.split("/")
@@ -39,11 +41,15 @@ toHTMLTree = (filename) ->
     throw e
 
 fileUnchanged = (outpath, text) ->
+    if not text?
+        console.log('no text at all for %s', outpath)
+        return true
     return false unless path.existsSync(outpath)
     stats = fs.statSync(outpath)
     return false unless stats.isFile()
     return false unless stats.size is new Buffer(text, 'utf-8').length
     return false unless fs.readFileSync(outpath, 'utf-8') is text
+#     console.log('writing %s', outpath)
     return true
 
 
@@ -53,6 +59,8 @@ writeIfChanged = (outpath, text) ->
 
 
 writefiles = ->
+  concatenated_js = []
+  concatenated_css = []
   for outpath, outtext of output_files
     filetype = path.extname(outpath)[1..]
     contents = output_files[outpath].join("\n\n")
@@ -63,7 +71,13 @@ writefiles = ->
     filetype = path.extname(outpath)[1..]
     contents = output_files[outpath].join("\n\n")
     if filetype in [ "html", "css", "js" ]
-      writeIfChanged(outpath, contents)
+      writeIfChanged(outpath, processor[filetype](outpath, contents))
+      if filetype is 'js'
+        concatenated_js.push(contents)
+      if filetype is 'css'
+        concatenated_css.push(contents)
+  writeIfChanged('public/js/script.js', concatenated_js.join('\n\n'));
+  writeIfChanged('public/css/style.js', concatenated_css.join('\n\n'));
 
 ttype = (obj) ->
   t = typeof obj
@@ -99,12 +113,21 @@ codeExcerpt = (name, text) ->
     filename = parsedline[1]
     ext = path.extname(filename)
     base = path.basename(filename, ext)
-    outpath = "build/" + base + ext
+    switch ext
+        when '.css'
+            outpath = 'public/css/mystyles/' + base + ext
+        when '.js'
+            outpath = 'public/js/mylibs/' + base + ext
+        when '.sjs' # marker for server-side javascript
+            outpath = 'server/' + base + '.js'
+        else
+            outpath = "build/" + base + ext
     stash_fragment outpath, text
     
 extract = (filename) ->
   ext = path.extname(filename)
   toHTMLTree filename  if ext in [ ".md", ".markdown" ]
+  
 
 processor = 
   sketch: (filename, contents) ->
@@ -133,6 +156,15 @@ processor =
     processors.markdown filename, contents
   
   json: (filename, contents) ->
+  
+  html: (filename, contents) ->
+    contents
+  
+  css: (filename, contents) ->
+    contents
+  
+  js: (filename, contents) ->
+    contents
 
 finder.on "file", extract
 finder.on "end",  writefiles
