@@ -61,16 +61,17 @@ There is no specific support, but oBloq can be used to document Ajax paths, URL 
 ## Todo
 
 * Package as a Node module
-√ Gather all extracted *.js and *.css files into concatenated files
+* √ Gather all extracted *.js and *.css files into concatenated files
 * Minimized and compress concatenated files for production
 * Allow user configuration for which files get concatenated, minimized, and compressed and in what order
-√ Watch command to re-run extraction whenever a source file is changed
+* Support coffeescript on server-side
+* √ Watch command to re-run extraction whenever a source file is changed
 * Fix offset of text in sketchy
 * Convert sketchy to build dom objects for layout where applicable
 * More example code
 * Code clean up and commenting
-* Include files global.stylus or bloqs/global/*.stylus when processing other stylus files (for definitions of site-wide variables for things like colours and fonts)
-* Include files global.markdown or bloqs/global/*.markdown when processing other markdown files (for link definitions)
+* √ Include files global.stylus (deferred: or bloqs/global/*.stylus) when processing other stylus files (for definitions of site-wide variables for things like colours and fonts)
+* √ Include files global.markdown (deferred: or bloqs/global/*.markdown) when processing other markdown files (for link definitions)
 * Allow mustache placeholders to be used in markdown for template generation (*.mushdown?)
 * Include useful snippets of HTML, CSS, JS to be assembled as standard components (with commentary on use)
 * Server for editing / viewing oBloq content
