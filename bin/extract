@@ -5,7 +5,6 @@ path = require("path")
 markdown = require("markdown").markdown
 mustache = require("mustache")
 stylus = require("stylus")
-nib = require("nib")
 coffeescript = require("coffee-script")
 finder = require("findit").find(process.cwd() + "/bloqs")
 
@@ -69,6 +68,7 @@ fileUnchanged = (outpath, text) ->
 
 writeIfChanged = (outpath, text) ->
     unless fileUnchanged(outpath, text)
+        ensurepath(outpath)
         fs.writeFileSync(outpath, text)
 
 
@@ -94,7 +94,7 @@ writefiles = ->
     outpath = outfilename(output_path, ext)
     contents = output_files[output_path].join("\n\n")
     if ext in [ ".html", ".css", ".js" ]
-      console.log('writing file %s', outpath)
+      # console.log('writing file %s', outpath)
       writeIfChanged(outpath, processor[ext[1..]](outpath, contents))
       if ext is '.js'
         concatenated_js.push(contents)
@@ -162,7 +162,7 @@ processor =
     base = path.basename(filename, ext)
     outpath = base + '.css'
     outcontents = ''
-    stylus(contents).set("filename", filename).use(nib()).import("nib").render (err, result) ->
+    stylus(contents).set("filename", filename).render (err, result) ->
       if err
         console.log('Error parsing stylus %s: %s', filename, err)
         return
