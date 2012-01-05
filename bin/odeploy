@@ -1,0 +1,16 @@
+#!/bin/sh
+
+target=$BLOQ_DEPLOY
+
+extract
+cp build/*.mustache $target/build/
+cp public/css/style.css $target/public/css/
+cp public/js/script.js $target/public/js/
+cp server/*.js $target/server
+cp -r public/img/* $target/public/img/
+cp -r public/css/custom-theme $target/public/css/
+cp -r public/css/fonts $target/public/css/
+cp -r public/css/libs $target/public/css/
+cp -r public/js/libs $target/public/js
+
+
