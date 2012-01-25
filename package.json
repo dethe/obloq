@@ -1,0 +1,16 @@
+{
+    "name": "obloq"
+  , "version": "0.0.1"
+  , "description": "A format for literate web programming based on Markdown"
+  , "keywords": ["literate"]
+  , "author": "Dethe Elza <dethe@livingcode.org>"
+  , "dependencies": {
+      "markdown": ">= 0.3.1",
+      "mustache": ">= 0.4.0",
+      "stylus": ">= 0.22.6",
+      "coffee-script": ">= 1.2.0",
+      "findit": ">= 0.1.2"
+  }
+  , "main": "index"
+  , "engines": { "node": "0.4.x" }
+}
