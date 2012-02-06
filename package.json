@@ -3,7 +3,11 @@
   , "version": "0.0.1"
   , "description": "A format for literate web programming based on Markdown"
   , "keywords": ["literate"]
-  , "author": "Dethe Elza <dethe@livingcode.org>"
+  , "author": {
+      "name": "Dethe Elza"
+    , "email": "dethe@livingcode.org"
+    , "url": "http://livingcode.org"
+  }
   , "dependencies": {
       "markdown": ">= 0.3.1",
       "mustache": ">= 0.4.0",
@@ -12,5 +16,18 @@
       "findit": ">= 0.1.2"
   }
   , "main": "index"
+  , "bin": {
+      "oextract": "./bin/oextract"
+    , "oclean": "./bin/oclean"
+    , "odeploy": "./bin/odeploy"
+    , "owatch": "./bin/owatch"
+  }
+  , "bugs": "https://github.com/dethe/obloq/issues"
+  , "repository": 
+    {
+      "type": "git"
+    , "url": "https://github.com/dethe/obloq.git"
+    }
+  , "preferGlobal": true
   , "engines": { "node": "0.4.x" }
 }
