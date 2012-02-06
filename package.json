@@ -1,6 +1,6 @@
 {
     "name": "obloq"
-  , "version": "0.0.1"
+  , "version": "0.0.2"
   , "description": "A format for literate web programming based on Markdown"
   , "keywords": ["literate"]
   , "author": {
