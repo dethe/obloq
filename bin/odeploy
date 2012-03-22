@@ -2,6 +2,16 @@
 
 target=$BLOQ_DEPLOY
 
+# Create directory structure in the target if it doesn't already exist:
+for subdir in build server public/img public/css public/js
+do
+    if [ ! -f $target/$subdir ];
+    then
+        mkdir -p $target/$subdir
+    fi
+done
+
+# Generate the deployment files if they don't already exist:
 extract
 cp build/*.mustache $target/build/
 cp public/css/style.css $target/public/css/
@@ -12,5 +22,3 @@ cp -r public/css/custom-theme $target/public/css/
 cp -r public/css/fonts $target/public/css/
 cp -r public/css/libs $target/public/css/
 cp -r public/js/libs $target/public/js
-
-
