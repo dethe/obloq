@@ -2,15 +2,18 @@
 
 target=$BLOQ_DEPLOY
 
-extract
+oclean
+oextract
+rm -rf $target/build/*
+rm -rf $target/public/css/*
+rm -rf $target/public/js/*
+rm -rf $target/public/img/*
+rm -rf $target/server/*
 cp build/*.mustache $target/build/
-cp public/css/style.css $target/public/css/
-cp public/js/script.js $target/public/js/
-cp server/*.js $target/server
+cp -r public/css/* $target/public/css
+cp -r public/js/* $target/public/js
 cp -r public/img/* $target/public/img/
-cp -r public/css/custom-theme $target/public/css/
-cp -r public/css/fonts $target/public/css/
-cp -r public/css/libs $target/public/css/
-cp -r public/js/libs $target/public/js
+cp server/*.js $target/server
+cp -r package.json $target/
 
 
