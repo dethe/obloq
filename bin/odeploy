@@ -3,7 +3,7 @@
 target=$BLOQ_DEPLOY
 
 # Create directory structure in the target if it doesn't already exist:
-for subdir in build server tasks public/img public/css public/js
+for subdir in build server tasks public/img public/css public/js public/flash
 do
     if [ ! -f $target/$subdir ];
     then
@@ -32,3 +32,4 @@ cp tasks/*.js $target/tasks
 cp -r public/img/* $target/public/img/
 cp -r public/css/* $target/public/css/
 cp -r public/js/* $target/public/js/
+cp -r public/flash/* $/target/public/flash
