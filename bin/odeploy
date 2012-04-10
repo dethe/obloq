@@ -32,4 +32,4 @@ cp tasks/*.js $target/tasks
 cp -r public/img/* $target/public/img/
 cp -r public/css/* $target/public/css/
 cp -r public/js/* $target/public/js/
-cp -r public/flash/* $/target/public/flash
+cp -r public/flash/* $target/public/flash
