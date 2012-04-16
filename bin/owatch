@@ -1,12 +1,18 @@
 #!/usr/bin/env coffee
 
+dirName = process.cwd() + '/bloqs'
 fs = require("fs")
-finder = require("findit").find(process.cwd() + "/bloqs")
+finder = require("findit").find(dirName)
 exec = require('child_process').exec
 
-watchit = (filename) -> 
+console.log 'Watching for bloq changes in ' + dirName
+
+watchit = (filename) ->
     fs.watchFile filename, (curr, prev) -> 
         if curr.mtime > prev.mtime
-            exec('extract')
-            
+            process.stdout.write 'Running oextract...'  # Using stdout.write to avoid the linebreak
+            exec('oextract', ->
+                console.log 'done'
+            )
+
 finder.on('file', watchit)
