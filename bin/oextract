@@ -26,6 +26,10 @@ outfilename = (infilename, ext) ->
             outpath = 'public/js/mylibs/' + base + ext
         when '.sjs' # marker for server-side javascript
             outpath = 'server/' + base + '.sjs'
+        when '.sjstest' # marker for server-side tests
+            outpath = 'test/server/' + base + '.js'
+        when '.jstest' # marker for client-side tests
+            outpath = 'test/client/' + base + '.js'
         when '.html' # build/ already appended
             outpath = base + ext
         else
@@ -75,7 +79,6 @@ writeIfChanged = (outpath, text) ->
 writefiles = ->
   concatenated_js = []
   concatenated_css = []
-  concatenated_sjs = []
   ## First Pass: Convert all higher-level languages, save as reference files
   for output_path, outtext of output_files
     ext = path.extname(output_path)
@@ -102,6 +105,8 @@ writefiles = ->
         concatenated_css.push(contents)
     if ext is '.sjs'
         writeIfChanged(outpath.replace('sjs', 'js'), processor[ext[1..]](outpath, contents))
+    if ext in ['.sjstest', '.jstest']
+        writeIfChanged(outpath.replace(/s?jstest/, 'js'), processor[ext[1..]](outpath, contents))
         
   ## Concatenate all client CSS and JS into one file for delivery
   writeIfChanged('public/js/script.js', concatenated_js.join('\n\n'));
@@ -198,6 +203,12 @@ processor =
     contents
     
   sjs: (filename, contents) ->
+    contents
+
+  sjstest: (filename, contents) ->
+    contents
+
+  jstest: (filename, contents) ->
     contents
 
 finder.on "file", extract
