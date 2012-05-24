@@ -3,14 +3,17 @@
 fs = require("fs")
 path = require("path")
 markdown = require("markdown").markdown
-mustache = require("mustache")
 stylus = require("stylus")
+console.log('   using stylus %s', stylus.version)
 coffeescript = require("coffee-script")
+console.log('   using coffeescript %s', coffeescript.VERSION)
 finder = require("findit").find(process.cwd() + "/bloqs")
 
 output_files = {}
 global_stylus = []
 global_markdown = []
+rcount = 0
+wcount = 0
 
 relative = (infilename) ->
     return 'docs' + infilename.split(process.cwd() + '/bloqs')[1] if infilename[0] is '/'
@@ -46,6 +49,7 @@ ensurepath = (relpath) ->
     
 toHTMLTree = (filename) ->
   try
+    rcount++
     text = fs.readFileSync filename, "utf-8"
     tree = markdown.toHTMLTree(text)
     html = markdown.toHTML(text)
@@ -57,23 +61,9 @@ toHTMLTree = (filename) ->
     console.log "There was a problem processing file %s", filename
     throw e
 
-fileUnchanged = (outpath, text) ->
-    if not text?
-        console.log('no text at all for %s', outpath)
-        return true
-    return false unless path.existsSync(outpath)
-    stats = fs.statSync(outpath)
-    return false unless stats.isFile()
-    return false unless stats.size is new Buffer(text, 'utf-8').length
-    return false unless fs.readFileSync(outpath, 'utf-8') is text
-#     console.log('writing %s', outpath)
-    return true
-
-
 writeIfChanged = (outpath, text) ->
-    unless fileUnchanged(outpath, text)
-        ensurepath(outpath)
-        fs.writeFileSync(outpath, text)
+    wcount++
+    fs.writeFileSync(outpath, text)
 
 
 writefiles = ->
@@ -109,8 +99,9 @@ writefiles = ->
         writeIfChanged(outpath.replace(/s?jstest/, 'js'), processor[ext[1..]](outpath, contents))
         
   ## Concatenate all client CSS and JS into one file for delivery
-  writeIfChanged('public/js/script.js', concatenated_js.join('\n\n'));
-  writeIfChanged('public/css/style.css', concatenated_css.join('\n\n'));
+  writeIfChanged('public/js/script.js', concatenated_js.join('\n\n'))
+  writeIfChanged('public/css/style.css', concatenated_css.join('\n\n'))
+  console.log('oextract read %s files and wrote %s files', rcount, wcount)
 
 ttype = (obj) ->
   t = typeof obj
