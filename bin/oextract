@@ -139,12 +139,15 @@ codeExcerpt = (name, text) ->
     parsedline = lines[0].match(/file\: +(.*)/)
     unless parsedline
       throw new Error("no filename found for " + lines.length + " lines of code")
-    filename = parsedline[1]
-    ext = path.extname(filename)
-    base = path.basename(filename, ext)
-    outpath = base + ext
-    stash_fragment outpath, text
-    
+    filenames = parsedline[1]
+    # Allow multiple, comma-separated output files per code block:
+    for filename in filenames.split(',')
+      filename = filename.trim()
+      ext = path.extname(filename)
+      base = path.basename(filename, ext)
+      outpath = base + ext
+      stash_fragment outpath, text
+
 extract = (filename) ->
   ext = path.extname(filename)
   toHTMLTree filename  if ext in [ ".md", ".markdown" ]
