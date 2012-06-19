@@ -60,23 +60,61 @@ There is no specific support, but oBloq can be used to document Ajax paths, URL 
 
 ## Todo
 
-* Package as a Node module
-* √ Gather all extracted *.js and *.css files into concatenated files
-* Minimized and compress concatenated files for production
-* Allow user configuration for which files get concatenated, minimized, and compressed and in what order
-* Support coffeescript on server-side
-* √ Watch command to re-run extraction whenever a source file is changed
-* Fix offset of text in sketchy
-* Convert sketchy to build dom objects for layout where applicable
+### oBloq 2.0
+
+* Convert to be an extension of Grunt (https://github.com/cowboy/grunt) (mainly the code extraction from markdown)
+* Have default filename targets
+* Make client vs. server code explicit rather than a naming convention. Default to both?
+* Allow alternate filename targets in comments
+* Allow raw HTML, CSS, JS files to be in bloqs directory?
+* Build an editor based on CodeMirror (http://codemirror.net/doc/manual.html)
+* Minimized and compress concatenated files for production (side-effect of moving to Grunt)
+* Allow user configuration for which files get concatenated, minimized, and compressed and in what order (side-effect of Grunt)
+* Support coffeescript on server-side (side-effect of multiple targets, better specificity)
 * More example code
+* Comment extracted code to show where it was extracted from, for tracing back to source file
 * Code clean up and commenting
-* √ Include files global.stylus (deferred: or bloqs/global/*.stylus) when processing other stylus files (for definitions of site-wide variables for things like colours and fonts)
-* √ Include files global.markdown (deferred: or bloqs/global/*.markdown) when processing other markdown files (for link definitions)
 * Allow mustache placeholders to be used in markdown for template generation (*.mushdown?)
 * Include useful snippets of HTML, CSS, JS to be assembled as standard components (with commentary on use)
-* Server for editing / viewing oBloq content
+* Componentization - use x-tag (http://csuwldcat.github.com/x-tag/) or Enyo (http://enyojs.com/) to help define bloqs?
+
+### Generated docs
+
 * Generate links to documentation automatically
+* Build list of classes used and in which bloqs (need to parse html templates)
+* Build list of IDs used and in which bloqs (ditto)
+* Build list of events emitted and in which bloqs (need to parse JS: use Escrima?)
+* Build list of events listened for and in which bloqs (ditto)
+* Build list of functions defined and in which bloqs (ditto)
+* Build list of functions called? (ditto)
+* Syntax highlighting (stylus was missing)
+
+### Testing
+
+* Validate / lint / hint all files (side effect of moving to Grunt)
+* Build visual tests into the docs, including tools to check with various data (for overflow), state (loggged in?), and block size (for responsive design). Seeing the visual tests update while you're in the oBloq editor would be pretty nifty.
+
+### Sketchy
+
+* Fix offset of text in sketchy
+* Different units for sketches (grid-based?)
+* Convert sketchy to build dom objects for layout where applicable
 * Determine sketch size automatically from content (this would avoid the need to give room for sketchy lines to overflow, done manually now
-* Create an NPM package for oBloq
 * Reduce the "nudge" factor in small sketches
+* Smoothing: keep each point's nudge factor within 2px of last nudge
+* Make sketch components clickable links to docs for those items (interpage linking)
+* New component: rich text
+* New component: text
+* New component: tab view
+* New component: social noise
+* New component: video player
+
+### To-dones
+
+* √ Allow multiple filename targets
+* √ Watch command to re-run extraction whenever a source file is changed
+* √ Package as a Node module
+* √ Gather all extracted *.js and *.css files into concatenated files
+* √ Include files global.stylus (deferred: or bloqs/global/*.stylus) when processing other stylus files (for definitions of site-wide variables for things like colours and fonts)
+* √ Include files global.markdown (deferred: or bloqs/global/*.markdown) when processing other markdown files (for link definitions)
 
