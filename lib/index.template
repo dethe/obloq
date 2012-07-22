@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <title>oBloq Examples</title>
-        <link rel="stylesheet" href="lib/obloq.css">
+        <link rel="stylesheet" href="../lib/obloq.css">
         <link rel="stylesheet" href="http://yandex.st/highlightjs/6.1/styles/default.min.css">
     </head>
     <body>
@@ -20,8 +20,8 @@
         </div>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
         <script src="http://yandex.st/highlightjs/6.1/highlight.min.js"></script>
-        <script src="lib/raphael_152.js"></script>
-        <script src="lib/sketchy.js"></script>
-        <script src="lib/obloq.js"></script>
+        <script src="../lib/raphael_152.js"></script>
+        <script src="../lib/sketchy.js"></script>
+        <script src="../lib/obloq.js"></script>
     </body>
 </html>

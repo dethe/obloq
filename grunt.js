@@ -2,10 +2,13 @@ module.exports = function(grunt){
     grunt.initConfig({
         clean: {
             // Clean will recursively delete entire directories. Be careful
-            all: ['build']
+            all: ['build','docs']
         },
         extract: {
             build: ['bloqs/*.md', 'bloqs/**/*.md']
+        },
+        doc: {
+            docs: ['bloqs/*.md', 'bloqs/**/*.md']
         },
         lint: {
             all: ['build/*.js', 'build/**/*.js']
@@ -23,5 +26,5 @@ module.exports = function(grunt){
     }catch(e){
         grunt.loadNpmTasks('obloq/tasks');
     }
-    grunt.registerTask('default', 'clean extract');
+    grunt.registerTask('default', 'clean extract doc');
 };

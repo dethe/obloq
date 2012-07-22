@@ -16,7 +16,7 @@ module.exports = function(grunt) {
     var rimraf = require('rimraf');
     
     grunt.registerMultiTask('clean', 'Delete generated files before extracting code blocks', function(){
-        var files = grunt.file.expandFiles(this.file.src);
+        var files = this.file.src;
         files.forEach(function(path){
             rimraf.sync(path);
         });

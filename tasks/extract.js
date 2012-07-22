@@ -35,6 +35,7 @@ module.exports = function(grunt) {
     };
 
     grunt.registerMultiTask('extract', 'Extract code blocks from markdown documents', function(){
+        console.log('extracting files');
         var files = grunt.file.expandFiles(this.file.src);
         var destfolder = this.file.dest;
         files.forEach(function(src){
@@ -42,6 +43,33 @@ module.exports = function(grunt) {
                 appendToPath(path.join(destfolder, dest), code);
             });
         });
+    });
+    
+    grunt.registerMultiTask('doc', 'Build documentation from markdown documents', function(){
+        console.log('building docs');
+        var files = grunt.file.expandFiles(this.file.src);
+        var destfolder = this.file.dest;
+        var paths = [];
+        files.forEach(function(src){
+            var markdown = fs.readFileSync(src, 'utf8');
+            markdownToHtml(markdown, function(html){
+                var prefix = getNestedPath(src);
+                var filename = path.basename(src, '.md') + '.' + 'html';
+                var dest = path.join(destfolder, prefix, filename);
+                paths.push(dest);
+                console.log('saving %s', dest);
+                appendToPath(dest, html);
+            });
+        });
+        var index = fs.readFileSync('lib/index.template', 'utf8');
+        var $ = cheerio.load(index);
+        var holder = $('#menu ul');
+        holder.empty();
+        paths.forEach(function(src){
+            var name = getNamedPath(src);
+            holder.append('<li><a href="#' + name + '">' + name + '</a></li>');
+        });
+        appendToPath(path.join(destfolder, 'index.html'), $.html());
     });
     
     // We can write a file to a directory that doesn't exist yet
@@ -101,6 +129,26 @@ module.exports = function(grunt) {
         }
     }
     
+    function capitalize(name){
+        return name[0].toUpperCase() + name.slice(1);
+    }
+    
+    function getNamedPath(pathname){
+        var dirs = path.dirname(pathname).split(path.sep);
+        dirs.shift();
+        dirs.push(path.basename(pathname, '.html'));
+        for (var i = 0; i < dirs.length; i++){
+            dirs[i] = capitalize(dirs[i]);
+        }
+        return dirs.join(path.sep);
+    }
+    
+    function getNestedPath(pathname){
+        var dirs = path.dirname(pathname).split(path.sep);
+        dirs.shift(); // throw away the first directory of nesting
+        return dirs.join(path.sep);
+    }
+    
     function extractBlocksFromFile(src, callback){
         //console.log('extractBlocksFromFile');
         var markdown = fs.readFileSync(src, 'utf8');
@@ -108,19 +156,12 @@ module.exports = function(grunt) {
             //console.log('markdownToHtml callback');
             htmlToCodeBlocks(html, function(code, ext, opts){
                 //console.log('htmlToCodeBlocks callback');
-                if (opts && opts.filename){
-                    dest = opts.filename;
-                }else if (opts && opts.prefix){
-                    dest = opts.prefix + '/' + path.basename(src, '.md') + '.' + ext;
-                }else{
-                    dest = path.basename(src, '.md') + '.' + ext;
-                }
+                var prefix = opts.prefix || getNestedPath(src);
+                var filename = path.basename(src, '.md') + '.' + ext;
+                var dest = opts.dest || path.join(prefix, filename);
+                console.log('src: %s, dest: %s', src, dest);
                 callback(code, dest);
             });
         });
     }
-
-
-
-    
 };
