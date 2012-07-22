@@ -62,14 +62,9 @@ There is no specific support, but oBloq can be used to document Ajax paths, URL 
 
 ### oBloq 2.0
 
-* Convert to be an extension of Grunt (https://github.com/cowboy/grunt) (mainly the code extraction from markdown)
-* Have default filename targets
-* Make client vs. server code explicit rather than a naming convention. Default to both?
-* Allow alternate filename targets in comments
 * Allow raw HTML, CSS, JS files to be in bloqs directory?
 * Build an editor based on CodeMirror (http://codemirror.net/doc/manual.html)
 * Minimized and compress concatenated files for production (side-effect of moving to Grunt)
-* Allow user configuration for which files get concatenated, minimized, and compressed and in what order (side-effect of Grunt)
 * Support coffeescript on server-side (side-effect of multiple targets, better specificity)
 * More example code
 * Comment extracted code to show where it was extracted from, for tracing back to source file
@@ -80,7 +75,6 @@ There is no specific support, but oBloq can be used to document Ajax paths, URL 
 
 ### Generated docs
 
-* Generate links to documentation automatically
 * Build list of classes used and in which bloqs (need to parse html templates)
 * Build list of IDs used and in which bloqs (ditto)
 * Build list of events emitted and in which bloqs (need to parse JS: use Escrima?)
@@ -111,6 +105,13 @@ There is no specific support, but oBloq can be used to document Ajax paths, URL 
 
 ### To-dones
 
+* √ Sketches not showing up
+* √ Allow user configuration for which files get concatenated, minimized, and compressed and in what order (side-effect of Grunt)
+* √ Generate links to documentation automatically
+* √ Have default filename targets
+* √ Make client vs. server code explicit rather than a naming convention. Default to both?
+* √ Allow alternate filename targets in comments
+* √ Convert to be an extension of Grunt (https://github.com/cowboy/grunt) (mainly the code extraction from markdown)
 * √ Allow multiple filename targets
 * √ Watch command to re-run extraction whenever a source file is changed
 * √ Package as a Node module
