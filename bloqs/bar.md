@@ -24,6 +24,16 @@ Stylesheet can be css, stylus, sass, less, etc.
 }
 ```
 
+Multiple blocks can target the same file. Traditional Markdown code blocks (indented,
+not fenced) can be used, but they must have an explicit filename (path) set in a 
+comment on the first line of the block.
+
+    /* filename: bar.stylus */
+    
+    bar:before{
+        content: <div class="shadow"></div>
+    }
+
 ## Bar Handler (client-side)
 
 Files get default names based on the markdown filename. This block will end up as `bar.js`. Multiple blocks which end up with the same file names will be concatenated together.
@@ -34,7 +44,7 @@ $('.bar').on('click', 'button', barButtonHandler);
 
 ## Bar Handler (server-side)
 
-Each block can over-ride its default name in a couple of ways. If the first line of the block contains the exact word "prefix:" or "filename:" it will be stripped from the results and the resulting filename will be the default name with that prefix, or the exact filename specified. The following block will be named `server/bar.js`.
+Each block can over-ride its default name in a couple of ways. If the first line of the block contains the exact word "prefix:" or "filename:" it will be stripped from the results and the resulting filename will be the default name with that prefix, or the exact filename specified. The following block will be named `server/bar.js`. Code blocks like the inline one in the previous sentence, which have no prefix, over-ride, or fenced language set, will be ignored and not extracted.
 
 ``` javascript
 // prefix: server
