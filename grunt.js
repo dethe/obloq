@@ -18,6 +18,10 @@ module.exports = function(grunt){
     });
     
     // load extract task
-    grunt.loadTasks('tasks');
+    try{
+        grunt.loadTasks('tasks');
+    }catch(e){
+        grunt.loadNpmTasks('obloq/tasks');
+    }
     grunt.registerTask('default', 'clean extract');
 };
