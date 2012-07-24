@@ -46,9 +46,9 @@ For example:
 
 ``` text
 size 400 200
-image 10 10 180 180
-text 300 20 Title
-rect 210 10 180 80 Article
+img 10 10 180 180
+text 300 10 Title
+rect 210 30 180 100 Article
 rect 210 110 180 80 Article
 ```
 
@@ -56,9 +56,9 @@ becomes
 
 ``` sketch
 size 400 200
-image 10 10 180 180
-text 300 20 Title
-rect 210 10 180 80 Article
+img 10 10 180 180
+text 300 10 Title
+rect 210 30 180 100 Article
 rect 210 110 180 80 Article
 ```
     
