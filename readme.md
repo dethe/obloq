@@ -119,3 +119,4 @@ There is no specific support, but oBloq can be used to document Ajax paths, URL 
 * √ Include files global.stylus (deferred: or bloqs/global/*.stylus) when processing other stylus files (for definitions of site-wide variables for things like colours and fonts)
 * √ Include files global.markdown (deferred: or bloqs/global/*.markdown) when processing other markdown files (for link definitions)
 
+<script src="http://dethe.github.com/obloq/lib/loader.js"></script>
