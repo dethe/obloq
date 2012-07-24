@@ -12,23 +12,11 @@ oBloq was developed around the idea of "card-based programming," which is that m
 
 ## How to use oBloq
 
-Once you've forked the project and cloned a local copy there are a few things to know to get started.
-
-Most of the magic comes from code blocks in the markdown files. Each code block expects to have the first line in the format:
-
-    file: filename.ext
-    
-followed by a blank line, then the contents of the expected file. This line is used for creating files, for triggering post-processing (stylus -> css, markdown -> html). Currently supported extensions are .html, .css, .js, .markdown, .md (same as .markdown), .stylus, .mustache, and .coffee. The filename part is usually the same as the markdown filename that is being processed, but it doesn't have to be. All the markdown files in the .bloqs directory will be processed at once and all the code blocks with the same filename will be concatenated. Code blocks containing markdown files will be processed and concatenated with html content with the same base filename. Likewise .stylus will be processed and concatenated with .css, and .coffee will be processed and concatenated with .js.
+Rewrite this section.
 
 ## Dependencies
 
-Beside Node and NPM, node modules needed are coffee-script, markdown, mustache, stylus, and nib.
-
-## File organization and the Extract command
-
-When you run extract it looks for a folder named "bloqs" in the current directory, then searches that folder recursively for markdown files (*.md or *.markdown). Extracted files are put into a "build" directory. HTML files for documentation are built for each markdown file found, and are placed in matching subdirectories (so a bloqs/sub/folder/file.md will end up in build/sub/folder/file.html). Files extracted from code blocks are not organized hierchically, but put in the build directory directly.
-
-Currently you have to edit the index.html document to create links to the generated documents in the build directory (by adding hash tags based on the examples given). At some point it would be nice to autogenerate those.
+Rewrite this section
 
 ## Text-based wireframes
 
@@ -53,6 +41,26 @@ Code blocks whose file extension is .sketch are preserved and converted in-brows
     ltext x y text # draws text left justified starting at x y
     rtext x y text # draws text right justified and ending at x y
     avatar x y w h # draws a rectangle with a very rough sketch of a person. Needs work.
+    
+For example:
+
+``` text
+size 400 200
+image 10 10 180 180
+text 300 20 Title
+rect 210 10 180 80 Article
+rect 210 110 180 80 Article
+```
+
+becomes
+
+``` sketch
+size 400 200
+image 10 10 180 180
+text 300 20 Title
+rect 210 10 180 80 Article
+rect 210 110 180 80 Article
+```
     
 ## Other uses
 
