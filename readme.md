@@ -2,9 +2,9 @@
 
 oBloq is a system designed to solve several problems I've encountered in years of developing complex web sites and web applications. One problem is getting the system documented well. I've experimented with literate programming languages before, but none of them seemed like a good fit for web programming. Another, and possibly more pressing problem, is locality of reference. What I mean is how to keep related code close together when it is scattered across HTML, CSS, Javascript, database, server-side controllers, etc. Relatedly, how do we develop a consistent vocabulary between all of the participants in a project, as well as all the components of the project? Another nice to have would be to gather this all in a text-based format that is easily diff'd and kept in version control.
 
-That might sound like a lot to ask for one tool, but oBloq is standing on the shoulders of giants. By leveraging Node.js, Markdown formatting, Stylus for CSS, and JSON it can organize all the relevant information for your web site or webapp, including wireframes, in a simple, readable text format. It can easily be extended to support the tools of your choice (it already supports Coffeescript in addition to Javascript, and Mustache for templates). oBloq works best if design and development is based on CSS more than on Photoshop, but it can work either way.
+That might sound like a lot to ask for one tool, but oBloq is standing on the shoulders of giants. By leveraging Node.js, Markdown formatting, and Grunt.js, all of your application code (including wireframes), can exist in a simple, readable text format.
 
-oBloq isn't finished. I am working to add support for visually testing layouts and modules, a tool for watching files and rebuilding them as needed, and a server for distributed editing of the oBloq files. It's already handy for creating documentation and extracting the files needed to build an app. Soon it will also support concatenating and compressing the resulting files for production, as well as control over how the files are build (building different production files for editing than for viewers, for instance). Development is progressing quickly and I am currently seeking feedback on the ideas captured in oBloq.
+oBloq isn't finished. I am working to add support for visually testing layouts and modules, a library of re-usable components, and experimenting with other features, but it has already been used to create a full-featured commercial web application.
 
 ## About the name
 
@@ -61,7 +61,7 @@ text 300 10 Title
 rect 210 30 180 100 Article
 rect 210 110 180 80 Article
 ```
-    
+
 ## Other uses
 
 There is no specific support, but oBloq can be used to document Ajax paths, URL patterns, Events generated or listened for, APIs, permissions,  reasons for hacks and work-arounds, problems encountered, etc. Essentially, all development-related documentation (and most code) should be able to be fit into readable oBloq documents. I haven't used it for server-side development yet, but see no overwhelming reason not to do so (especially if the server uses Node.js). For any documentation which does not fit into a language that oBloq supports, it can kept in plain Markdown, or oBloq can be extended to support the language
