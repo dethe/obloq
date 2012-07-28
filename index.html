@@ -2,9 +2,9 @@
 
 <p>oBloq is a system designed to solve several problems I've encountered in years of developing complex web sites and web applications. One problem is getting the system documented well. I've experimented with literate programming languages before, but none of them seemed like a good fit for web programming. Another, and possibly more pressing problem, is locality of reference. What I mean is how to keep related code close together when it is scattered across HTML, CSS, Javascript, database, server-side controllers, etc. Relatedly, how do we develop a consistent vocabulary between all of the participants in a project, as well as all the components of the project? Another nice to have would be to gather this all in a text-based format that is easily diff'd and kept in version control.</p>
 
-<p>That might sound like a lot to ask for one tool, but oBloq is standing on the shoulders of giants. By leveraging Node.js, Markdown formatting, Stylus for CSS, and JSON it can organize all the relevant information for your web site or webapp, including wireframes, in a simple, readable text format. It can easily be extended to support the tools of your choice (it already supports Coffeescript in addition to Javascript, and Mustache for templates). oBloq works best if design and development is based on CSS more than on Photoshop, but it can work either way.</p>
+<p>That might sound like a lot to ask for one tool, but oBloq is standing on the shoulders of giants. By leveraging Node.js, Markdown formatting, and Grunt.js, all of your application code (including wireframes), can exist in a simple, readable text format.</p>
 
-<p>oBloq isn't finished. I am working to add support for visually testing layouts and modules, a tool for watching files and rebuilding them as needed, and a server for distributed editing of the oBloq files. It's already handy for creating documentation and extracting the files needed to build an app. Soon it will also support concatenating and compressing the resulting files for production, as well as control over how the files are build (building different production files for editing than for viewers, for instance). Development is progressing quickly and I am currently seeking feedback on the ideas captured in oBloq.</p>
+<p>oBloq isn't finished. I am working to add support for visually testing layouts and modules, a library of re-usable components, and experimenting with other features, but it has already been used to create a full-featured commercial web application.</p>
 
 <h2>About the name</h2>
 
@@ -12,11 +12,17 @@
 
 <h2>How to use oBloq</h2>
 
-<p>Rewrite this section.</p>
+<ol>
+<li>Install grunt: <code>npm install -g grunt</code></li>
+<li>In your webapp directory, install the obloq grunt tasks: <code>npm install obloq</code></li>
+<li>Copy the sample grunt task: <code>cp node_modules/obloq/lib/grunt.example grunt.js</code></li>
+<li>Create a <code>bloq</code> subdirectory for your markdown files</li>
+<li>Run <code>grunt</code> to extract code blocks to a <code>build</code> directory and documentation to <code>docs</code></li>
+</ol>
 
-<h2>Dependencies</h2>
+<p><strong>Warning</strong> The default grunt task will erase all files in <code>docs</code> and <code>build</code> each time it is run. Only use these directories for generated files!</p>
 
-<p>Rewrite this section</p>
+<p>You can edit the <code>grunt.js</code> file to suit the needs of your project.</p>
 
 <h2>Text-based wireframes</h2>
 
