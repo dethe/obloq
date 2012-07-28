@@ -9,9 +9,9 @@
     , "url": "http://livingcode.org"
   }
   , "dependencies": {
-      "cheerio": ">= 0.8.3",
-      "robotskirt": ">= 1.0.0",
-      "rimraf": ">= 2.0.2"
+      "cheerio": "0.8.x",
+      "robotskirt": "https://github.com/benmills/robotskirt/tarball/v1.0.0-rc1",
+      "rimraf": "2.0.x"
   }
   , "main": "index"
   , "bugs": "https://github.com/dethe/obloq/issues"
