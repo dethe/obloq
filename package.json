@@ -14,15 +14,11 @@
       "rimraf": ">= 2.0.2"
   }
   , "main": "index"
-  , "bin": {
-      "oextract": "./bin/oextract"
-  }
   , "bugs": "https://github.com/dethe/obloq/issues"
   , "repository": 
     {
       "type": "git"
     , "url": "https://github.com/dethe/obloq.git"
     }
-  , "preferGlobal": true
   , "engines": { "node": ">= 0.8.2" }
 }
