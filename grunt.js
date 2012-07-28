@@ -21,10 +21,7 @@ module.exports = function(grunt){
     });
     
     // load extract task
-    try{
-        grunt.loadTasks('tasks');
-    }catch(e){
-        grunt.loadNpmTasks('obloq/tasks');
-    }
+    grunt.loadTasks('tasks');
+
     grunt.registerTask('default', 'clean extract doc');
 };

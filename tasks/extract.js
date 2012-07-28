@@ -61,7 +61,12 @@ module.exports = function(grunt) {
                 appendToPath(dest, html);
             });
         });
-        var index = fs.readFileSync('lib/index.template', 'utf8');
+        var index;
+        try{
+            index = fs.readFileSync('lib/index.template', 'utf8');
+        }catch(e){
+            index = fs.readFileSync('node_modules/obloq/lib/index.template', 'utf8');
+        }
         var $ = cheerio.load(index);
         var holder = $('#menu ul');
         holder.empty();
