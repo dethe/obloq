@@ -13,7 +13,7 @@ oBloq was developed around the idea of "card-based programming," which is that m
 ## How to use oBloq
 
 1. Install grunt: `npm install -g grunt`
-2. In your webapp directory, install the obloq grunt tasks: `npm install obloq`
+2. In your webapp directory, install the obloq grunt tasks: `npm install https://github.com/dethe/obloq/tarball/unstable`
 3. Copy the sample grunt task: `cp node_modules/obloq/lib/grunt.example grunt.js`
 4. Create a `bloq` subdirectory for your markdown files
 5. Run `grunt` to extract code blocks to a `build` directory and documentation to `docs`
