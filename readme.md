@@ -48,7 +48,7 @@ text x y text # draws text centered on x y in the "dadhand" handwriting font
 ltext x y text # draws text left justified starting at x y
 rtext x y text # draws text right justified and ending at x y
 avatar x y w h # draws a rectangle with a very rough sketch of a person. Needs work.
-``` text
+```
     
 For example (example works on [Github page](http://dethe.github.com/obloq/), but not in code view):
 
