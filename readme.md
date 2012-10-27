@@ -18,7 +18,7 @@ oBloq was developed around the idea of "card-based programming," which is that m
 4. Create a `bloqs` subdirectory for your markdown files
 5. Copy the js and styles for documentation files: `cp -r node_modules/obloq/lib .`
 6. To support Less, Handlebars, Stylus, Coffescript, Jade, and more, install the grunt-contrib tasks: `npm install grunt-contrib`
-7. Run `grunt` to extract code blocks to a `build` directory and documentation to `docs`
+7. Run `grunt` to extract code blocks to a `build` directory, documentation to `docs`, templates and concatenated, minified files to `web`.
 
 **Warning** The default grunt task will erase all files in `docs`, `build`, and `web` each time it is run. Only use these directories for generated files! The default task also assumes grunt-contrib is installed, although it isn't strictly required for oBloq.
 
@@ -50,7 +50,7 @@ rtext x y text # draws text right justified and ending at x y
 avatar x y w h # draws a rectangle with a very rough sketch of a person. Needs work.
 ``` text
     
-For example (example works on [http://dethe.github.com/obloq/ Github page], but not in code view):
+For example (example works on [Github page](http://dethe.github.com/obloq/), but not in code view):
 
 ``` text
 size 400 200
@@ -91,7 +91,7 @@ There is no specific support, but oBloq can be used to document Ajax paths, URL 
 
 * Build list of classes used and in which bloqs (need to parse html templates)
 * Build list of IDs used and in which bloqs (ditto)
-* Build list of events emitted and in which bloqs (need to parse JS: use [http://marijnhaverbeke.nl/acorn/ Acorn] parser?)
+* Build list of events emitted and in which bloqs (need to parse JS: use [Acorn](http://marijnhaverbeke.nl/acorn/) parser?)
 * Build list of events listened for and in which bloqs (ditto)
 * Build list of functions defined and in which bloqs (ditto)
 * Build list of functions called? (ditto)
