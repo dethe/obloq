@@ -1,4 +1,4 @@
-# oBloq literate programming tool
+# oBloq: Polyglot Literate Programming
 
 oBloq is a system designed to solve several problems I've encountered in years of developing complex web sites and web applications. One problem is getting the system documented well. I've experimented with literate programming languages before, but none of them seemed like a good fit for web programming. Another, and possibly more pressing problem, is locality of reference. What I mean is how to keep related code close together when it is scattered across HTML, CSS, Javascript, database, server-side controllers, etc. Relatedly, how do we develop a consistent vocabulary between all of the participants in a project, as well as all the components of the project? Another nice to have would be to gather this all in a text-based format that is easily diff'd and kept in version control.
 
@@ -70,50 +70,9 @@ rect 210 30 180 100 Article
 rect 210 110 180 80 Article
 ```
 
-## Other uses
-
-There is no specific support, but oBloq can be used to document Ajax paths, URL patterns, Events generated or listened for, APIs, permissions,  reasons for hacks and work-arounds, problems encountered, etc. Essentially, all development-related documentation (and most code) should be able to be fit into readable oBloq documents. Both client and server-side code can be kept in oBloq documents, including mixing both in the same markdown file. For any documentation which does not fit into a language that oBloq supports, it can kept in plain Markdown, or oBloq can be extended to support the language
-
-## Todo
-
-### oBloq 2.0
-
-* Allow raw HTML, CSS, JS files to be in bloqs directory?
-* Build an editor based on CodeMirror (http://codemirror.net/doc/manual.html)
-* More example code
-* Comment extracted code to show where it was extracted from, for tracing back to source file
-* Code clean up and commenting
-* Allow mustache placeholders to be used in markdown for template generation (*.mushdown?)
-* Include useful snippets of HTML, CSS, JS to be assembled as standard components (with commentary on use)
-* Componentization - use x-tag (http://csuwldcat.github.com/x-tag/) or Enyo (http://enyojs.com/) to help define bloqs?
-
-### Generated docs
-
-* Build list of classes used and in which bloqs (need to parse html templates)
-* Build list of IDs used and in which bloqs (ditto)
-* Build list of events emitted and in which bloqs (need to parse JS: use [Acorn](http://marijnhaverbeke.nl/acorn/) parser?)
-* Build list of events listened for and in which bloqs (ditto)
-* Build list of functions defined and in which bloqs (ditto)
-* Build list of functions called? (ditto)
-* Syntax highlighting (stylus was missing)
-
 ### Testing
 
 * Build visual tests into the docs, including tools to check with various data (for overflow), state (loggged in?), and block size (for responsive design). Seeing the visual tests update while you're in the oBloq editor would be pretty nifty.
 
-### Sketchy
-
-* Fix offset of text in sketchy
-* Different units for sketches (grid-based?)
-* Convert sketchy to build dom objects for layout where applicable
-* Determine sketch size automatically from content (this would avoid the need to give room for sketchy lines to overflow, done manually now
-* Reduce the "nudge" factor in small sketches
-* Smoothing: keep each point's nudge factor within 2px of last nudge
-* Make sketch components clickable links to docs for those items (interpage linking)
-* New component: rich text
-* New component: text
-* New component: tab view
-* New component: social noise
-* New component: video player
-
+    
 <script src="http://dethe.github.com/obloq/lib/loader.js"></script>

@@ -12,7 +12,11 @@
       "cheerio": "0.8.x",
       "robotskirt": "https://github.com/benmills/robotskirt/tarball/v1.0.0-rc1",
       "rimraf": "2.0.x"
-  }
+  },
+    "devDependencies": {
+      "grunt": "*",
+      "grunt-contrib": "*"
+  },
   , "main": "index"
   , "bugs": "https://github.com/dethe/obloq/issues"
   , "repository": 

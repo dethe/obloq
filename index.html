@@ -1,4 +1,4 @@
-<h1>oBloq literate programming tool</h1>
+<h1>oBloq: Polyglot Literate Programming</h1>
 
 <p>oBloq is a system designed to solve several problems I've encountered in years of developing complex web sites and web applications. One problem is getting the system documented well. I've experimented with literate programming languages before, but none of them seemed like a good fit for web programming. Another, and possibly more pressing problem, is locality of reference. What I mean is how to keep related code close together when it is scattered across HTML, CSS, Javascript, database, server-side controllers, etc. Relatedly, how do we develop a consistent vocabulary between all of the participants in a project, as well as all the components of the project? Another nice to have would be to gather this all in a text-based format that is easily diff'd and kept in version control.</p>
 
@@ -69,58 +69,10 @@ rect 210 30 180 100 Article
 rect 210 110 180 80 Article
 </code></pre>
 
-<h2>Other uses</h2>
-
-<p>There is no specific support, but oBloq can be used to document Ajax paths, URL patterns, Events generated or listened for, APIs, permissions,  reasons for hacks and work-arounds, problems encountered, etc. Essentially, all development-related documentation (and most code) should be able to be fit into readable oBloq documents. Both client and server-side code can be kept in oBloq documents, including mixing both in the same markdown file. For any documentation which does not fit into a language that oBloq supports, it can kept in plain Markdown, or oBloq can be extended to support the language</p>
-
-<h2>Todo</h2>
-
-<h3>oBloq 2.0</h3>
-
-<ul>
-<li>Allow raw HTML, CSS, JS files to be in bloqs directory?</li>
-<li>Build an editor based on CodeMirror (<a href="http://codemirror.net/doc/manual.html">http://codemirror.net/doc/manual.html</a>)</li>
-<li>More example code</li>
-<li>Comment extracted code to show where it was extracted from, for tracing back to source file</li>
-<li>Code clean up and commenting</li>
-<li>Allow mustache placeholders to be used in markdown for template generation (*.mushdown?)</li>
-<li>Include useful snippets of HTML, CSS, JS to be assembled as standard components (with commentary on use)</li>
-<li>Componentization - use x-tag (<a href="http://csuwldcat.github.com/x-tag/">http://csuwldcat.github.com/x-tag/</a>) or Enyo (<a href="http://enyojs.com/">http://enyojs.com/</a>) to help define bloqs?</li>
-</ul>
-
-<h3>Generated docs</h3>
-
-<ul>
-<li>Build list of classes used and in which bloqs (need to parse html templates)</li>
-<li>Build list of IDs used and in which bloqs (ditto)</li>
-<li>Build list of events emitted and in which bloqs (need to parse JS: use <a href="http://marijnhaverbeke.nl/acorn/">Acorn</a> parser?)</li>
-<li>Build list of events listened for and in which bloqs (ditto)</li>
-<li>Build list of functions defined and in which bloqs (ditto)</li>
-<li>Build list of functions called? (ditto)</li>
-<li>Syntax highlighting (stylus was missing)</li>
-</ul>
-
 <h3>Testing</h3>
 
 <ul>
 <li>Build visual tests into the docs, including tools to check with various data (for overflow), state (loggged in?), and block size (for responsive design). Seeing the visual tests update while you're in the oBloq editor would be pretty nifty.</li>
-</ul>
-
-<h3>Sketchy</h3>
-
-<ul>
-<li>Fix offset of text in sketchy</li>
-<li>Different units for sketches (grid-based?)</li>
-<li>Convert sketchy to build dom objects for layout where applicable</li>
-<li>Determine sketch size automatically from content (this would avoid the need to give room for sketchy lines to overflow, done manually now</li>
-<li>Reduce the &quot;nudge&quot; factor in small sketches</li>
-<li>Smoothing: keep each point's nudge factor within 2px of last nudge</li>
-<li>Make sketch components clickable links to docs for those items (interpage linking)</li>
-<li>New component: rich text</li>
-<li>New component: text</li>
-<li>New component: tab view</li>
-<li>New component: social noise</li>
-<li>New component: video player</li>
 </ul>
 
 <script src="http://dethe.github.com/obloq/lib/loader.js"></script>
