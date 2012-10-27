@@ -1,16 +1,8 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <title>oBloq Polyglot Literate Web Programming</title>
-    <link rel="stylesheet" href="http://dethe.github.com/obloq/lib/obloq.css" />
-</head>
-<body>
 <h1>oBloq literate programming tool</h1>
 
 <p>oBloq is a system designed to solve several problems I've encountered in years of developing complex web sites and web applications. One problem is getting the system documented well. I've experimented with literate programming languages before, but none of them seemed like a good fit for web programming. Another, and possibly more pressing problem, is locality of reference. What I mean is how to keep related code close together when it is scattered across HTML, CSS, Javascript, database, server-side controllers, etc. Relatedly, how do we develop a consistent vocabulary between all of the participants in a project, as well as all the components of the project? Another nice to have would be to gather this all in a text-based format that is easily diff'd and kept in version control.</p>
 
-<p>That might sound like a lot to ask for one tool, but oBloq is standing on the shoulders of giants. By leveraging Node.js, Markdown formatting, and Grunt.js, all of your application code (including wireframes), can exist in a simple, readable text format.</p>
+<p>That might sound like a lot to ask for one tool, but oBloq is standing on the shoulders of giants. By leveraging Node.js, Markdown formatting, Grunt.js, and the Sketchy graphics utility, all of your application code (including wireframes), can exist in a simple, readable text format.</p>
 
 <p>oBloq isn't finished. I am working to add support for visually testing layouts and modules, a library of re-usable components, and experimenting with other features, but it has already been used to create a full-featured commercial web application.</p>
 
@@ -24,11 +16,13 @@
 <li>Install grunt: <code>npm install -g grunt</code></li>
 <li>In your webapp directory, install the obloq grunt tasks: <code>npm install https://github.com/dethe/obloq/tarball/unstable</code></li>
 <li>Copy the sample grunt task: <code>cp node_modules/obloq/lib/grunt.example grunt.js</code></li>
-<li>Create a <code>bloq</code> subdirectory for your markdown files</li>
-<li>Run <code>grunt</code> to extract code blocks to a <code>build</code> directory and documentation to <code>docs</code></li>
+<li>Create a <code>bloqs</code> subdirectory for your markdown files</li>
+<li>Copy the js and styles for documentation files: <code>cp -r node_modules/obloq/lib .</code></li>
+<li>To support Less, Handlebars, Stylus, Coffescript, Jade, and more, install the grunt-contrib tasks: <code>npm install grunt-contrib</code></li>
+<li>Run <code>grunt</code> to extract code blocks to a <code>build</code> directory, documentation to <code>docs</code>, templates and concatenated, minified files to <code>web</code>.</li>
 </ol>
 
-<p><strong>Warning</strong> The default grunt task will erase all files in <code>docs</code> and <code>build</code> each time it is run. Only use these directories for generated files!</p>
+<p><strong>Warning</strong> The default grunt task will erase all files in <code>docs</code>, <code>build</code>, and <code>web</code> each time it is run. Only use these directories for generated files! The default task also assumes grunt-contrib is installed, although it isn't strictly required for oBloq.</p>
 
 <p>You can edit the <code>grunt.js</code> file to suit the needs of your project.</p>
 
@@ -36,7 +30,7 @@
 
 <p>Code blocks whose file extension is .sketch are preserved and converted in-browser. Other types are formatted in-browser for syntax highlighting, but .sketch blocks are converted to line drawings using Raphael.js and a plugin for Raphael called Sketchy.js. Sketchy lets you draw line which are rough and resemble hand-drawn (and not with a particularly steady hand) and is still in development in parallel with oBloq, but the commands recognized in oBloq at the time of writing this are below. Arguments x, y, w, and h are all assumed to be integers, text is any string following them. Text strings do not have to be quoted. The offset of strings is a little wonky, that's something I'm looking into. Comments are not supported by the sketchy syntax, but #comments below are used to describe the results.</p>
 
-<pre><code>size w h # REQUIRED, sets the size of the canvas to sketch into. I plan to make this calculated from the sketch commands at some point.
+<pre><code class="text">size w h # REQUIRED, sets the size of the canvas to sketch into. I plan to make this calculated from the sketch commands at some point.
 line x1 y1 x2 y2 # draws a line from the point x1 y2 to the point x2 y2
 arrow x1 y1 x2 y2 # like line, but puts an arrowhead at x2 y2
 rect x y w h text # draws a rectangle with its upper-left-hand corner at x y and the dimensions w h. The text argument is optional and will be centered in the rectangle.
@@ -55,11 +49,12 @@ text x y text # draws text centered on x y in the &quot;dadhand&quot; handwritin
 ltext x y text # draws text left justified starting at x y
 rtext x y text # draws text right justified and ending at x y
 avatar x y w h # draws a rectangle with a very rough sketch of a person. Needs work.
-</code></pre>
+``` text
 
-<p>For example:</p>
+For example (example works on [Github page](http://dethe.github.com/obloq/), but not in code view):
 
-<pre><code class="text">size 400 200
+``` text
+size 400 200
 img 10 10 180 180
 text 300 10 Title
 rect 210 30 180 100 Article
@@ -77,7 +72,7 @@ rect 210 110 180 80 Article
 
 <h2>Other uses</h2>
 
-<p>There is no specific support, but oBloq can be used to document Ajax paths, URL patterns, Events generated or listened for, APIs, permissions,  reasons for hacks and work-arounds, problems encountered, etc. Essentially, all development-related documentation (and most code) should be able to be fit into readable oBloq documents. I haven't used it for server-side development yet, but see no overwhelming reason not to do so (especially if the server uses Node.js). For any documentation which does not fit into a language that oBloq supports, it can kept in plain Markdown, or oBloq can be extended to support the language</p>
+<p>There is no specific support, but oBloq can be used to document Ajax paths, URL patterns, Events generated or listened for, APIs, permissions,  reasons for hacks and work-arounds, problems encountered, etc. Essentially, all development-related documentation (and most code) should be able to be fit into readable oBloq documents. Both client and server-side code can be kept in oBloq documents, including mixing both in the same markdown file. For any documentation which does not fit into a language that oBloq supports, it can kept in plain Markdown, or oBloq can be extended to support the language</p>
 
 <h2>Todo</h2>
 
@@ -86,8 +81,6 @@ rect 210 110 180 80 Article
 <ul>
 <li>Allow raw HTML, CSS, JS files to be in bloqs directory?</li>
 <li>Build an editor based on CodeMirror (<a href="http://codemirror.net/doc/manual.html">http://codemirror.net/doc/manual.html</a>)</li>
-<li>Minimized and compress concatenated files for production (side-effect of moving to Grunt)</li>
-<li>Support coffeescript on server-side (side-effect of multiple targets, better specificity)</li>
 <li>More example code</li>
 <li>Comment extracted code to show where it was extracted from, for tracing back to source file</li>
 <li>Code clean up and commenting</li>
@@ -101,7 +94,7 @@ rect 210 110 180 80 Article
 <ul>
 <li>Build list of classes used and in which bloqs (need to parse html templates)</li>
 <li>Build list of IDs used and in which bloqs (ditto)</li>
-<li>Build list of events emitted and in which bloqs (need to parse JS: use Escrima?)</li>
+<li>Build list of events emitted and in which bloqs (need to parse JS: use <a href="http://marijnhaverbeke.nl/acorn/">Acorn</a> parser?)</li>
 <li>Build list of events listened for and in which bloqs (ditto)</li>
 <li>Build list of functions defined and in which bloqs (ditto)</li>
 <li>Build list of functions called? (ditto)</li>
@@ -111,7 +104,6 @@ rect 210 110 180 80 Article
 <h3>Testing</h3>
 
 <ul>
-<li>Validate / lint / hint all files (side effect of moving to Grunt)</li>
 <li>Build visual tests into the docs, including tools to check with various data (for overflow), state (loggged in?), and block size (for responsive design). Seeing the visual tests update while you're in the oBloq editor would be pretty nifty.</li>
 </ul>
 
@@ -132,27 +124,5 @@ rect 210 110 180 80 Article
 <li>New component: video player</li>
 </ul>
 
-<h3>To-dones</h3>
-
-<ul>
-<li>√ Sketches not showing up</li>
-<li>√ Allow user configuration for which files get concatenated, minimized, and compressed and in what order (side-effect of Grunt)</li>
-<li>√ Generate links to documentation automatically</li>
-<li>√ Have default filename targets</li>
-<li>√ Make client vs. server code explicit rather than a naming convention. Default to both?</li>
-<li>√ Allow alternate filename targets in comments</li>
-<li>√ Convert to be an extension of Grunt (<a href="https://github.com/cowboy/grunt">https://github.com/cowboy/grunt</a>) (mainly the code extraction from markdown)</li>
-<li>√ Allow multiple filename targets</li>
-<li>√ Watch command to re-run extraction whenever a source file is changed</li>
-<li>√ Package as a Node module</li>
-<li>√ Gather all extracted *.js and *.css files into concatenated files</li>
-<li>√ Include files global.stylus (deferred: or bloqs/global/*.stylus) when processing other stylus files (for definitions of site-wide variables for things like colours and fonts)</li>
-<li>√ Include files global.markdown (deferred: or bloqs/global/*.markdown) when processing other markdown files (for link definitions)</li>
-</ul>
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-<script src="http://dethe.github.com/obloq/lib/raphael_152.js"></script>
-<script src="http://dethe.github.com/obloq/lib/sketchy.js"></script>
-</body>
-</html>
+<script src="http://dethe.github.com/obloq/lib/loader.js"></script>
 
