@@ -15,7 +15,8 @@ oBloq was developed around the idea of "card-based programming," which is that m
 1. Install grunt: `npm install -g grunt`
 2. In your webapp directory, install the obloq grunt tasks: `npm install https://github.com/dethe/obloq/tarball/unstable`
 3. Copy the sample grunt task: `cp node_modules/obloq/lib/grunt.example grunt.js`
-4. Create a `bloq` subdirectory for your markdown files
+4. Create a `bloqs` subdirectory for your markdown files
+5. Copy the js and styles for documentation files: `cp -r node_modules/obloq/lib .`
 5. Run `grunt` to extract code blocks to a `build` directory and documentation to `docs`
 
 **Warning** The default grunt task will erase all files in `docs` and `build` each time it is run. Only use these directories for generated files!
