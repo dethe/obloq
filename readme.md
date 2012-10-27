@@ -70,9 +70,5 @@ rect 210 30 180 100 Article
 rect 210 110 180 80 Article
 ```
 
-### Testing
-
-* Build visual tests into the docs, including tools to check with various data (for overflow), state (loggged in?), and block size (for responsive design). Seeing the visual tests update while you're in the oBloq editor would be pretty nifty.
-
     
 <script src="http://dethe.github.com/obloq/lib/loader.js"></script>
