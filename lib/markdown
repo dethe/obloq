@@ -9,8 +9,7 @@ var renderer = new rs.HtmlRenderer();
 var files = process.argv.slice(2);
 files.forEach(function(filename){
     fs.readFile('readme.md', 'utf8', function (err, data) {
-      rs.markdown(renderer, data, function (html) {
-        util.puts(html);
-      }, flags);
+      var parser = new rs.Markdown(renderer, flags);
+	  util.puts(parser.render(data));
     })
 });
