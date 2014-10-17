@@ -113,8 +113,8 @@ input[type=file]{
 
 @font-face {
 	font-family: 'DadhandRegular';
-	src: url('lib/dadhand-webfont.eot');
-	src: local('☺'), url('dadhand-webfont.woff') format('woff'), url('dadhand-webfont.ttf') format('truetype'), url('dadhand-webfont.svg#webfontiNDkHeiT')
+	src: url('../vendor/dadhand-webfont.eot');
+	src: local('☺'), url('../vendor/dadhand-webfont.woff') format('woff'), url('../vendor/dadhand-webfont.ttf') format('truetype'), url('../vendor/dadhand-webfont.svg#webfontiNDkHeiT')
 format('svg');
 	font-weight: normal;
 	font-style: normal;
