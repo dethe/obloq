@@ -4,9 +4,8 @@ A bar is a bloq that stretches across the parent container, usually containing l
 
 ## Bar template
 
-This is the moustache template we use to build a bar
-
-``` moustache
+This is the html template we use to build a bar
+``` html
 <div class="bar">{{content}}</bar>
 ```
 

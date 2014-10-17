@@ -17,7 +17,7 @@ Once you've forked the project and cloned a local copy there are a few things to
 Most of the magic comes from code blocks in the markdown files. Each code block expects to have the first line in the format:
 
     file: filename.ext
-    
+
 followed by a blank line, then the contents of the expected file. This line is used for creating files, for triggering post-processing (stylus -> css, markdown -> html). Currently supported extensions are .html, .css, .js, .markdown, .md (same as .markdown), .stylus, .mustache, and .coffee. The filename part is usually the same as the markdown filename that is being processed, but it doesn't have to be. All the markdown files in the .bloqs directory will be processed at once and all the code blocks with the same filename will be concatenated. Code blocks containing markdown files will be processed and concatenated with html content with the same base filename. Likewise .stylus will be processed and concatenated with .css, and .coffee will be processed and concatenated with .js.
 
 ## Dependencies
@@ -53,30 +53,25 @@ Code blocks whose file extension is .sketch are preserved and converted in-brows
     ltext x y text # draws text left justified starting at x y
     rtext x y text # draws text right justified and ending at x y
     avatar x y w h # draws a rectangle with a very rough sketch of a person. Needs work.
-    
+
 ## Other uses
 
-There is no specific support, but oBloq can be used to document Ajax paths, URL patterns, Events generated or listened for, APIs, permissions,  reasons for hacks and work-arounds, problems encountered, etc. Essentially, all development-related documentation (and most code) should be able to be fit into readable oBloq documents. I haven't used it for server-side development yet, but see no overwhelming reason not to do so (especially if the server uses Node.js). For any documentation which does not fit into a language that oBloq supports, it can kept in plain Markdown, or oBloq can be extended to support the language
+There is no specific support, but oBloq can be used to document Ajax paths, URL patterns, Events generated or listened for, APIs, permissions,  reasons for hacks and work-arounds, problems encountered, etc. Essentially, all development-related documentation (and most code) should be able to be fit into readable oBloq documents.
 
 ## Todo
 
-### oBloq 2.0
+### oBloq 3.0
 
-* Convert to be an extension of Grunt (https://github.com/cowboy/grunt) (mainly the code extraction from markdown)
+* Revert to not use Grunt
 * Have default filename targets
-* Make client vs. server code explicit rather than a naming convention. Default to both?
-* Allow alternate filename targets in comments
-* Allow raw HTML, CSS, JS files to be in bloqs directory?
+* Use gfm fenced code blocks with file types to mark html, css, js sections
+* Have a way to define variables independent of file type?
+* Don't mix in server code
+* Generate a custom element from each file (1:1)
+* No alternate file names
 * Build an editor based on CodeMirror (http://codemirror.net/doc/manual.html)
-* Minimized and compress concatenated files for production (side-effect of moving to Grunt)
-* Allow user configuration for which files get concatenated, minimized, and compressed and in what order (side-effect of Grunt)
-* Support coffeescript on server-side (side-effect of multiple targets, better specificity)
 * More example code
-* Comment extracted code to show where it was extracted from, for tracing back to source file
 * Code clean up and commenting
-* Allow mustache placeholders to be used in markdown for template generation (*.mushdown?)
-* Include useful snippets of HTML, CSS, JS to be assembled as standard components (with commentary on use)
-* Componentization - use x-tag (http://csuwldcat.github.com/x-tag/) or Enyo (http://enyojs.com/) to help define bloqs?
 
 ### Generated docs
 
@@ -109,12 +104,4 @@ There is no specific support, but oBloq can be used to document Ajax paths, URL 
 * New component: social noise
 * New component: video player
 
-### To-dones
-
-* √ Allow multiple filename targets
-* √ Watch command to re-run extraction whenever a source file is changed
-* √ Package as a Node module
-* √ Gather all extracted *.js and *.css files into concatenated files
-* √ Include files global.stylus (deferred: or bloqs/global/*.stylus) when processing other stylus files (for definitions of site-wide variables for things like colours and fonts)
-* √ Include files global.markdown (deferred: or bloqs/global/*.markdown) when processing other markdown files (for link definitions)
 

@@ -10,9 +10,6 @@
   }
   , "dependencies": {
       "markdown": ">= 0.3.1",
-      "mustache": ">= 0.4.0",
-      "stylus": ">= 0.22.6",
-      "coffee-script": ">= 1.2.0",
       "findit": ">= 0.1.2"
   }
   , "main": "index"
@@ -23,7 +20,7 @@
     , "owatch": "./bin/owatch"
   }
   , "bugs": "https://github.com/dethe/obloq/issues"
-  , "repository": 
+  , "repository":
     {
       "type": "git"
     , "url": "https://github.com/dethe/obloq.git"
